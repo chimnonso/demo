@@ -3,8 +3,6 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
-from project.core.views import core_bp
-from project.error_pages.handlers import error_pages
 
 app = Flask(__name__)
 ###################################
@@ -20,6 +18,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 Migrate(app,db)
+print(basedir)
 
 
 ###################################
@@ -31,5 +30,10 @@ login_manager.init_app(app)
 login_manager.login_view = 'users.login'
 # login_manager.login_message_category
 
+
+from project.core.views import core_bp
+from project.error_pages.handlers import error_pages
+from project.users.views import users
 app.register_blueprint(core_bp)
+app.register_blueprint(users)
 app.register_blueprint(error_pages)

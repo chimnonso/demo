@@ -13,12 +13,18 @@
         <ul class="nav navbar-nav">
           <li><a href="{{url_for('core.index')}}">Home</a></li>
           <li><a href="{{url_for('core.about')}}">About</a></li>
-          <li><a href="{{url_for('core.index')}}">Log Out</a></li>
-          <li><a href="{{url_for('core.index')}}">Account</a></li>
-          <li><a href="{{url_for('core.index')}}">Create Post</a></li>
-          <li><a href="{{url_for('core.index')}}">Log In</a></li>
-          <li><a href="{{url_for('core.index')}}">Register</a></li>
-        </ul>
+          
+          
+
+          {% if current_user.is_authenticated %}
+          <li><a href="{{url_for('users.logout')}}">Log Out</a></li>
+          <li><a href="{{url_for('users.account')}}">Account</a></li>
+          <li><a href="{{url_for('users.logout')}}">Create Post</a></li>
+          {% else %}
+          <li><a href="{{url_for('users.login')}}">Log In</a></li>
+          <li><a href="{{url_for('users.register')}}">Register</a></li>
+          {% endif %}
+        </ul> 
       </div><!--/.nav-collapse -->
     </div>
   </nav>
