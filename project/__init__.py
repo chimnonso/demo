@@ -3,6 +3,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
+print("done import")
 
 app = Flask(__name__)
 ###################################
@@ -34,6 +35,8 @@ login_manager.login_view = 'users.login'
 from project.core.views import core_bp
 from project.error_pages.handlers import error_pages
 from project.users.views import users
+from project.blog_posts.views import blog_posts
 app.register_blueprint(core_bp)
 app.register_blueprint(users)
 app.register_blueprint(error_pages)
+app.register_blueprint(blog_posts)

@@ -21,6 +21,7 @@ def is_safe_url(target):
 @users.route('/logout')
 def logout():
     logout_user()
+    flash("You have logged out", "danger")
     return redirect(url_for('core.index'))
 
 
@@ -54,7 +55,7 @@ def login():
             if not is_safe_url(next):
                 return abort(400)
         else:
-            flash("Email and/0r password not correct", 'danger')
+            flash("Email and/or password not correct", 'danger')
             return redirect('login.html')
         return redirect(next or url_for('users.account'))
     return render_template('login.html',form=form)
@@ -91,6 +92,6 @@ def account():
 def user_posts(username):
     page = request.args.get('page',1,type=int)
     user = User.query.filter_by(username=username).first_or_404()
-    blog_posts = BlogPost.query.filter_by(author=user).order_by(BlogPost.created_on.desc()).paginate(page=page,per_page =5)
+    blog_posts = BlogPost.query.filter_by(author=user).order_by(BlogPost.created_on.desc())
 #    blog_posts = BlogPost.query.filter_by(user_id=)
     return render_template('user_blog_posts.html', blog_posts=blog_posts, user=user)
